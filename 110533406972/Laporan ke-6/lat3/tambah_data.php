@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>Tambah Data Ifa</title>
+<title>Tambah Data</title>
 </head>
 <body>
 <form action="<?php $_SERVER['PHP_SELF'];?>" method="post">
@@ -25,7 +25,7 @@
 </table>
 </form>
 <?php
-require_once '../koneksi.php';
+require_once '../assets/koneksi.php';
 // Jika field nim dan nama diisi lalu disubmit
 if (isset($_POST['nim']) && isset($_POST['nama'])) {
 $nim = $_POST['nim'];

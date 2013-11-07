@@ -1,11 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>Menciptakan Database Ifa</title>
+<title>Menciptakan Database</title>
 </head>
 <body>
 <?php
-require_once '../koneksi.php';
+require_once '../assets/koneksi.php';
 $db = 'myweb';
 $res = mysql_query('CREATE DATABASE ' . $db);
 if ($res) {

@@ -29,18 +29,20 @@ show_admin_data($root);
 }
 break;
 case 'del':
-if (isset($_GET['id']) && ctype_digit($_GET['id'])) { ?>
-<h2 align="center">Hapus Data</h2>
-<div style="margin:auto; margin-bottom:5px; width:700px">
-<?php echo 'Apakah data berikut ini akan dihapus ?'; ?>
-</div>
-<?php data_detail($root, $_GET['id'], 1);
+if (isset($_GET['id']) && ctype_digit($_GET['id'])) {
 // Key untuk penghapusan data
-$id = $_GET['id']; ?>
-<form action="<?php $_SERVER['PHP_SELF'];?>" method="get" style="margin:auto; margin-top:5px; width:700px">
-<input type="button" name="submit" value="Ya" onClick="data_delete($root, $id)" />
-<input type="button" value="Tidak" onClick="history.go(-1)" />
-</form><?php
+$id = $_GET['id'];
+// Lengkapi pernyataan SQL hapus data
+$sql = "DELETE FROM " . MHS . " WHERE nim =" . $id;
+$res = mysql_query($sql);
+if ($res) { ?>
+<script type="text/javascript">
+document.location.href="<?php echo $root;?>";
+</script>
+<?php
+} else {
+echo 'Gagal menghapus data';
+}
 } else {
 show_admin_data($root);
 }
@@ -49,7 +51,7 @@ default:
 show_admin_data($root);
 }
 } else {
- show_admin_data($root);
+show_admin_data($root);
 }
 @mysql_close($res);
 } else {
@@ -98,8 +100,8 @@ title="Lihat Data"><?php echo $id;?></a>
 <td align="center">
 | <a href="<?php echo $root;?>&amp;act=edit&amp;id=
 <?php echo $id;?>">
-Edit</a>
-| <a href="<?php echo $root;?>&amp;act=del&amp;id= <?php echo $id;?>" title="Hapus Data"> Hapus</a>
+Edit</a> |
+<a href="<?php echo $root;?>&amp;act=del&amp;id=<?php echo $id;?>" onclick="return confirm('Apakah Anda yakin akan menghapus data dengan NIM:<?php echo $id ;?> dan (<?php echo $row[1];?>)?')" title="Hapus Data"> Hapus</a>
 <!--
 Lengkapi kode PHP untuk membuat link hapus data
 -->
@@ -167,6 +169,7 @@ if (isset($_POST['nim']) && $_POST['nim'] ) {
 // Jika tidak disertai id, berarti insert baru
 if (!$id) {
 // Lengkapi Pernyataan PHP SQL untuk INSERT data
+$sql = "insert into mahasiswa values ('".$_POST["nim"]."', '".$_POST["nama"]."', '".$_POST["alamat"]."')";
 $res = mysql_query($sql);
 if ($res) { ?>
 <script type="text/javascript">
@@ -178,9 +181,12 @@ echo 'Gagal menambah data';
 }
 } else {
 // Lengkapi Pernyataan PHP SQL untuk UPDATE data
+$sql = "UPDATE mahasiswa SET nama = '" .$_POST["nama"]. "', alamat = '" .$_POST["alamat"]. "' WHERE nim = " .$id;
 $res = mysql_query($sql);
 if ($res) { ?>
-// Lengkapi script untuk redireksi ke root
+<script type="text/javascript">
+document.location.href="<?php echo $root;?>";
+</script>
 <?php
 } else {
 echo 'Gagal memodifikasi';
@@ -241,24 +247,3 @@ onclick="history.go(-1)" /></td>
 }
 return false;
 }
-// Fungsi untuk menghasilkan form menghapus @param string root parameter menu @param integer id nim mahasiswa
-function data_delete($root, $id) {
-if (isset($_GET['id']) && $_GET['id']) {
-// Pernyataan SQL hapus data
-
-$sql = "DELETE FROM " . MHS . " WHERE nim =" . $id;
-@$res = mysql_query($sql);
-if ($res) {
-// Script untuk redireksi ke root
-?>
-<script type="text/javascript">
-document.location.href="<?php echo $root;?>";
-</script>
-<?php echo 'Data dengan NIM ' . $id . ' berhasil dihapus';
-} else {
-echo 'Gagal menghapus data';
-}
-@mysql_close($res);
-}
-}
-?>

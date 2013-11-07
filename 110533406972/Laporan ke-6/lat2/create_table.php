@@ -1,11 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>Menciptakan Tabel Ifa</title>
+<title>Menciptakan Tabel</title>
 </head>
 <body>
 <?php
-require_once '../koneksi.php';
+require_once '../assets/koneksi.php';
 $sql = 'CREATE TABLE mahasiswa (
 nim VARCHAR(12) NOT NULL,
 nama VARCHAR(40) NOT NULL,

@@ -1,24 +1,32 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>Aplikasi Database Ifa</title>
+<title>Aplikasi Database</title>
 <style type="text/css">
 <!--
-#kotak{
+#form{
 margin-top:10px;
 margin:auto;
+margin-bottom:50px;
 font-family: arial;
 font-size: 20px;
+color:#00CC66;
 width:350px;
+height : 270px;
+background:#99FF66;
 border: 3px solid #009966;
 }
-#masukan{
+#input{
 margin-top: 30px ;
 margin-left: 100px ;
 margin-bottom: 10px;
 font-family: calibri;
 font-size: 15px;
 color:#666666;
+}
+body {
+background-color: #DAE49C;
+margin-top:5%;
 }
 -->
 </style>
@@ -51,10 +59,11 @@ return false;
 }
 function validate() {
 if (!isset($_SESSION['nlogin']) || !isset($_SESSION['time'])) { ?>
-<div id="kotak">
+<div id="form">
 <h2 align="center">Login</h2>
+<hr style="color:#00CC66; border:double;" align="center" width="300"/>
 <form action="" method="post" name="login" >
-<div id="masukan">
+<div id="input">
 User ID :
 <br/>
 <input type="text" name="ID" style="margin-bottom:5px;"/>

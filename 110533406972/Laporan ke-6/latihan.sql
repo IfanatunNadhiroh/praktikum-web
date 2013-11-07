@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 30. Oktober 2013 jam 23:58
+-- Waktu pembuatan: 06. Nopember 2013 jam 23:57
 -- Versi Server: 5.5.16
 -- Versi PHP: 5.3.8
 
@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`nim`, `nama`, `alamat`) VALUES
-(1, 'Ifa', 'Wajak');
+(20, 'Ifanatun', 'Ifanatun'),
+(21, 'Nadhiroh', 'Nadhiroh');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

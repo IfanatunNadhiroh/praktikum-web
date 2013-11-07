@@ -1,4 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> <head>
+<title>Modifikasi Database</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!-- body { background-color: #DAE49C; } -->
+</style>
+</head>
+<body>
 <?php
+// Memanggil database
+require_once './Koneksi.php';
+// Konstanta nama tabel
+define('MHS', 'mahasiswa');
+ini_set('display_errors', 1);
+define('_VALID', 1);
+// include file eksternal
+require_once('./Login.php');
+init_login();
+validate();
+echo "<div align='center'><strong>Anda sedang on-line</strong></div>";
 /**
 * Fungsi utama untuk menangani pengolahan data
 * @param string root parameter menu
@@ -33,9 +53,12 @@ if (isset($_GET['id']) && ctype_digit($_GET['id'])) {
 // Key untuk penghapusan data
 $id = $_GET['id'];
 // Lengkapi pernyataan SQL hapus data
+$sql = "DELETE FROM " . MHS . " WHERE nim =" . $id;
 $res = mysql_query($sql);
 if ($res) { ?>
-// Lengkapi script untuk redireksi ke root
+<script type="text/javascript">
+document.location.href="<?php echo $root;?>";
+</script>
 <?php
 } else {
 echo 'Gagal menghapus data';
@@ -60,7 +83,7 @@ echo 'Data Tidak Ditemukan';
 * @param string root parameter menu
 */
 function show_admin_data($root) { ?>
-<h2 class="heading">Administrasi Data</h2>
+<div align='center'><h2 class="heading">Administrasi Data</h2></div>
 <?php
 $sql = 'SELECT nim, nama, alamat FROM ' . MHS;
 $res = mysql_query($sql);
@@ -68,6 +91,7 @@ if ($res) {
 $num = mysql_num_rows($res);
 if ($num) {
 ?>
+<div align='center'>
 <div class="tabel">
 <div style="padding:5px;">
 <a href="<?php echo $root;?>&amp;act=add">Tambah Data</a>
@@ -98,6 +122,7 @@ title="Lihat Data"><?php echo $id;?></a>
 | <a href="<?php echo $root;?>&amp;act=edit&amp;id=
 <?php echo $id;?>">
 Edit</a> |
+<a href="<?php echo $root;?>&amp;act=del&amp;id=<?php echo $id;?>" onclick="return confirm('Apakah Anda yakin akan menghapus data dengan NIM:<?php echo $id ;?> dan (<?php echo $row[1];?>)?')" title="Hapus Data"> Hapus</a>
 <!--
 Lengkapi kode PHP untuk membuat link hapus data
 -->
@@ -107,6 +132,7 @@ Lengkapi kode PHP untuk membuat link hapus data
 $i++;
 }
 ?>
+</div>
 </table>
 </div>
 <?php
@@ -165,6 +191,7 @@ if (isset($_POST['nim']) && $_POST['nim'] ) {
 // Jika tidak disertai id, berarti insert baru
 if (!$id) {
 // Lengkapi Pernyataan PHP SQL untuk INSERT data
+$sql = "insert into mahasiswa values ('".$_POST["nim"]."', '".$_POST["nama"]."', '".$_POST["alamat"]."')";
 $res = mysql_query($sql);
 if ($res) { ?>
 <script type="text/javascript">
@@ -176,9 +203,12 @@ echo 'Gagal menambah data';
 }
 } else {
 // Lengkapi Pernyataan PHP SQL untuk UPDATE data
+$sql = "UPDATE mahasiswa SET nama = '" .$_POST["nama"]. "', alamat = '" .$_POST["alamat"]. "' WHERE nim = " .$id;
 $res = mysql_query($sql);
 if ($res) { ?>
-// Lengkapi script untuk redireksi ke root
+<script type="text/javascript">
+document.location.href="<?php echo $root;?>";
+</script>
 <?php
 } else {
 echo 'Gagal memodifikasi';
@@ -239,3 +269,11 @@ onclick="history.go(-1)" /></td>
 }
 return false;
 }
+
+// Memanggil fungsi data handler
+data_handler('?m=data'); ?>
+<div align="center">
+<h2><a href="?m=logout">Logout</a></h2>
+</div>
+</body>
+</html>

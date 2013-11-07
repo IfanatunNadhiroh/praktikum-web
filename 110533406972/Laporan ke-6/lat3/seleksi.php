@@ -1,6 +1,6 @@
 <?php
 // File: seleksi.php
-require_once '../koneksi.php';
+require_once '../assets/koneksi.php';
 $sql = 'SELECT * FROM mahasiswa';
 $res = mysql_query($sql);
 if ($res) {
